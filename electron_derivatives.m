@@ -1,4 +1,4 @@
-function dstate = electron_derivatives(t, state, electron_num, Mu)
+function dstate = electron_derivatives(~, state, electron_num, Mu)
 
 
 % Extract values
@@ -31,8 +31,9 @@ end
 
 % Displays
 
-sum_p = norm(sum(p,1))
+r_sum = norm(sum(p,1));
 
+disp(r_sum)
 % Create Position Coords
 
 [X, Y] = meshgrid(1:electron_num);

@@ -8,6 +8,8 @@ Mu = 1;
 
 tspan = 0 : 0.00001 : 20;
 
+r_sum_limit = 0.01;
+
 % Initial State Calculation
 
 theta0 = 360 * rand(electron_num,1);
@@ -23,7 +25,9 @@ initial_state = reshape(initial_block,electron_num * 6,1);
 
 % Solve
 
-[t, state] = ode45(@(t,state) electron_derivatives(t, state, electron_num, Mu), tspan, initial_state);
+options = odeset('Events', @(t,state) r_sum_events(t,state, r_sum_limit, electron_num));
+
+[t, state, te, ye, ie] = ode45(@(t,state) electron_derivatives(t, state, electron_num, Mu), tspan, initial_state, options);
 
 % Axis Limits
 
